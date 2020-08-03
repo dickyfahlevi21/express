@@ -63,7 +63,6 @@ app.get("/user/:userid?", async (request, response) => {
       users: userList
     });
   }
-  // response.json({ id: params.userid, user, userList });
 });
 
 app.get("/pug", function (req, res) {
@@ -96,29 +95,18 @@ app.post("/todo", async (req, res) => {
 });
 
 app.post("/todo/:id", (req, res) => {
-  // const todo = TodoModel.findById(req.params.id);
   res.json({
     id: req.params.id,
     body: req.body
   });
-  // console.log('ini todo', todo)
 });
 
-/**
- * masih stuck di delete, belum terlalu paham soal express maupun mongodb
- * matih butuh waktu untuk belajar hal tersebut
- */
-
-app.delete("/todo/:id", async (req, res) => {
-  const deleteTodo = new TodoModel({
-    id: req.params.id
-  });
+app.post("/todo/:id/delete", async (req, res) => {
+  const deleteTodo = TodoModel.findById(req.params.id);
   await deleteTodo.deleteOne((err, todo) => {
     console.log("delete");
   });
-  console.log(deleteTodo, 'test add');
   res.redirect("/todo");
-
 });
 
 app.listen(port, () => {

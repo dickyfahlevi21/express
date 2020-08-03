@@ -6,13 +6,16 @@ block content
     .col-12
         form(method="POST" action='/todo')
             input(type='text' class="form-control mb-3" name="todo")
-            button(type="submit" class="btn btn-primary") Tambah
+            button(type="submit" class="btn btn-primary form-control mb-5") Tambah
 
     .col-12
-        - ul
-            each to in todo
-                li(class="text-center")= to.name
-                    span
-                        a(class="btn btn-danger" href=`todo/${to._id}` role="button" class="btn btn-danger text-center mr-auto ml-5 mt-2 mb-2") Hapus
+        .card
+            .card-body
+                ol(class="p-4 mb-0")
+                    each to in todo
+                        li()= to.name
+                            span()
+                                form(method="POST" action=`todo/${to._id}/delete` )
+                                    button(type="submit" role="button" class="btn btn-danger text-center mr-auto mt-2 mb-2") Hapus
     script.
      console.log(!{JSON.stringify(todo)}, 'list todo')
