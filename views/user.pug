@@ -1,0 +1,11 @@
+extends layouts.pug
+
+block content
+    ul
+      each user in users
+        li
+         a(href='user/'+user.id)=user.name
+    
+    script.
+     console.log(!{JSON.stringify(users)})
+        

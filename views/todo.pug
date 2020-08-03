@@ -1,0 +1,17 @@
+extends layouts.pug
+
+block content
+    .col-12
+        h1 Tambah Todo
+    .col-12
+        form(method="POST" action='/todo')
+            input(type='text' class="form-control mb-3" name="todo")
+            button(type="submit" class="btn btn-primary") Kirim
+
+    .col-12
+        - ul
+            each to in todo
+                li= to.name
+
+    script.
+     console.log(!{JSON.stringify(todo)})
