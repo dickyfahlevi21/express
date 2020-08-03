@@ -1,7 +1,7 @@
 const express = require("express");
 const axios = require("axios");
 const app = express();
-const port = 3001;
+const port = 3002;
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 // mongoose.connect('mongodb://localhost/todolist', {
@@ -44,7 +44,7 @@ const getTodo = async () => {
 };
 
 app.get("/", (req, res) => {
-  res.send("Hai husen");
+  res.send("go to this link for todo component http://localhost:3002/todo");
 });
 
 app.get("/user/:userid?", async (request, response) => {
@@ -91,7 +91,7 @@ app.post("/todo", async (req, res) => {
   await addTodo.save((err, todo) => {
     console.log("saved");
   });
-  console.log(addTodo);
+  console.log(addTodo, 'test add');
   res.redirect("/todo");
 });
 
@@ -101,6 +101,24 @@ app.post("/todo/:id", (req, res) => {
     id: req.params.id,
     body: req.body
   });
+  // console.log('ini todo', todo)
+});
+
+/**
+ * masih stuck di delete, belum terlalu paham soal express maupun mongodb
+ * matih butuh waktu untuk belajar hal tersebut
+ */
+
+app.delete("/todo/:id", async (req, res) => {
+  const deleteTodo = new TodoModel({
+    id: req.params.id
+  });
+  await deleteTodo.deleteOne((err, todo) => {
+    console.log("delete");
+  });
+  console.log(deleteTodo, 'test add');
+  res.redirect("/todo");
+
 });
 
 app.listen(port, () => {
